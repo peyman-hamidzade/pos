@@ -1,10 +1,12 @@
 import Navbar from "../components/navbar/Navbar";
+import HomeSlide from "../components/slide/HomeSlide";
 
 function Home () {
     return (
         <>
             <body className="font-YekanBakh-Regular text-sm bg-[#f5f1e4]">
                 <Navbar />
+                <HomeSlide />
             </body>
         </>
     );
