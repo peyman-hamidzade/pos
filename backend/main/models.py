@@ -3,15 +3,6 @@ from django.utils.text import slugify
 
 
 
-class Services(models.Model):
-    image = models.ImageField(upload_to='meida/')
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-
-    def __str__(self):
-        return self.title
-
-
 class Product(models.Model):
     name = models.CharField(max_length = 255)
     slug = models.SlugField(allow_unicode = True , unique=True, blank=True)
@@ -39,3 +30,20 @@ class Product(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+class Services(models.Model):
+    image = models.ImageField(upload_to='meida/')
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+
+class Faq(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+
+    def __str__(self):
+        return self.question
+

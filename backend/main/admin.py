@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Services
+from .models import Product, Services, Faq
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ['title', 'text', 'image']
@@ -14,5 +14,13 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'slug']
     list_per_page = 20
 
+class FaqAdmin(admin.ModelAdmin):
+    list_display = ['question']
+    list_filter = ['question']
+    search_fields = ['question']
+
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Services, ServiceAdmin)
+admin.site.register(Faq, FaqAdmin)
