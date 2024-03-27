@@ -1,7 +1,16 @@
 from django.db import models
 from django.utils.text import slugify
 
-# Create your models here.
+
+
+class Services(models.Model):
+    image = models.ImageField(upload_to='meida/')
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+
+    def __str__(self):
+        return self.title
+
 
 class Product(models.Model):
     name = models.CharField(max_length = 255)

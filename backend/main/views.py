@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Product
-from .serializers import ProductSerializer
+from .models import Product, Services
+from .serializers import ProductSerializer, ServiceSerializer
 
 @api_view(['GET'])
 def all_products(request):
@@ -12,4 +12,13 @@ def all_products(request):
         products_serializer = ProductSerializer(products, many=True)
 
         return Response(products_serializer.data, status.HTTP_200_OK)
+    return Response(None, status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def services(request):
+    if request.method == 'GET':
+        services = Services.objects.all()
+        services_serializer = ServiceSerializer(services, many=True)
+
+        return Response(services_serializer.data, status.HTTP_200_OK)
     return Response(None, status.HTTP_400_BAD_REQUEST)

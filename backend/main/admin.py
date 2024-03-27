@@ -1,7 +1,11 @@
 from django.contrib import admin
-from .models import Product
+from .models import Product, Services
 
-# Register your models here.
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ['title', 'text', 'image']
+    list_filter = ['title']
+    search_fields = ['title', 'text']
+    list_per_page = 20
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'slug', 'created', 'stock', 'count', 'color']
@@ -11,3 +15,4 @@ class ProductAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Services, ServiceAdmin)
