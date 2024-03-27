@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Services, Faq
+from .models import Product, Services, Faq, Ticket
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ['title', 'text', 'image']
@@ -20,7 +20,14 @@ class FaqAdmin(admin.ModelAdmin):
     search_fields = ['question']
 
 
+class TicketAdmin(admin.ModelAdmin):
+    list_display = ['title', 'email', 'date']
+    list_filter = ['title', 'email', 'date']
+    search_fields = ['title','email']
+    list_per_page = 20
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Services, ServiceAdmin)
 admin.site.register(Faq, FaqAdmin)
+admin.site.register(Ticket, TicketAdmin)
