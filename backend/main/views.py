@@ -11,9 +11,10 @@ def all_products(request):
         products = Product.objects.all()
         products_serializer = ProductSerializer(products, many=True)
 
-        return Response(products_serializer.data, status.HTTP_200_OK)
+        return Response(products_serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(['GET'])
 def services(request):
@@ -21,7 +22,7 @@ def services(request):
         services = Services.objects.all()
         services_serializer = ServiceSerializer(services, many=True)
 
-        return Response(services_serializer.data, status.HTTP_200_OK)
+        return Response(services_serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -44,6 +45,6 @@ def ticket(request):
         if ticket_serializer.is_valid():
             ticket_serializer.save()
 
-            return Response({"message":"پیام شما با موفقیت ثبت شد."}, status.HTTP_201_CREATED)
-        return Response(ticket_serializer.errors, status.HTTP_400_BAD_REQUEST)
+            return Response({"message":"پیام شما با موفقیت ثبت شد."}, status=status.HTTP_201_CREATED)
+        return Response(ticket_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
