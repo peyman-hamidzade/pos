@@ -2991,3 +2991,29 @@ details.collapse summary::-webkit-details-marker{
 .add-tocart-icon {
   margin-left: 3px;
 }
+
+
+.footer-icon img {
+  max-width: 5rem;
+  height: auto;
+}
+
+.footer-icon p {
+  opacity: 0.6;
+  font-weight: 100;
+  font-size: small;
+}
+
+.top-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footer-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
