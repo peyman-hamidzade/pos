@@ -2939,3 +2939,55 @@ details.collapse summary::-webkit-details-marker{
     padding-top: 2.5rem;
   }
 }
+
+.product-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.product-div {
+  border: 1px solid #ccc;
+    background-color: #fff;
+    overflow: hidden;
+    flex-basis: 17rem;
+}
+
+.product-image-div {
+  padding: 1rem;
+}
+
+.product-title-div {
+  border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7px;
+}
+
+.product-title-div h6 {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.product-cart-div {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+}
+
+.product-cart-div a{
+  transition: 0.3s;
+}
+
+.product-cart-div a:hover{
+  color:#D19C97 ;
+  transition: 0.3s;
+}
+
+.add-tocart-icon {
+  margin-left: 3px;
+}
