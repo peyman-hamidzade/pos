@@ -4,6 +4,7 @@ import LastProducts from "../components/products/LastProducts";
 import HomeServices from "../components/services/HomeServices";
 import HomeContact from "../components/contact/HomeContact";
 import TopFooter from "../components/topFooter/TopFooter";
+import Footer from "../components/footer/Footer";
 
 function Home () {
     return (
@@ -15,6 +16,7 @@ function Home () {
                 <HomeServices />
                 <HomeContact />
                 <TopFooter />
+                <Footer />
             </body>
         </>
     );

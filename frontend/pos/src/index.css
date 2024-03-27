@@ -3008,6 +3008,7 @@ details.collapse summary::-webkit-details-marker{
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .footer-icon {
