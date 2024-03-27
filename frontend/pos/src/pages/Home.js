@@ -1,7 +1,8 @@
 import Navbar from "../components/navbar/Navbar";
 import HomeSlide from "../components/slide/HomeSlide";
 import LastProducts from "../components/products/LastProducts";
-import Services from "../components/services/Services";
+import HomeServices from "../components/services/HomeServices";
+import HomeContact from "../components/contact/HomeContact";
 
 function Home () {
     return (
@@ -10,7 +11,8 @@ function Home () {
                 <Navbar />
                 <HomeSlide />
                 <LastProducts />
-                <Services />
+                <HomeServices />
+                <HomeContact />
             </body>
         </>
     );

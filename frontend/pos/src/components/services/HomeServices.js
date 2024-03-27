@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axiosInstance from '../axiosInstance/axiosInstance';
 
 
-function Services () {
+function HomeServices () {
 
     const [ services, setServices ] = useState([]);
 
@@ -75,4 +75,4 @@ function Services () {
     );
 }
 
-export default Services;
+export default HomeServices;
