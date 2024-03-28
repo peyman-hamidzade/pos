@@ -2949,9 +2949,10 @@ details.collapse summary::-webkit-details-marker{
 
 .product-div {
   border: 1px solid #ccc;
-    background-color: #fff;
-    overflow: hidden;
-    flex-basis: 17rem;
+  background-color: #fff;
+  overflow: hidden;
+  flex-basis: 17rem;
+  margin-bottom: 1rem;
 }
 
 .product-image-div {
@@ -2970,6 +2971,7 @@ details.collapse summary::-webkit-details-marker{
 .product-title-div h6 {
   font-weight: bold;
   font-size: 1rem;
+  margin: 0.5rem 0 0.5rem 0;
 }
 
 .product-cart-div {
@@ -3018,3 +3020,114 @@ details.collapse summary::-webkit-details-marker{
   align-items: center;
   margin-top: 1rem;
 }
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+.pagination a.active {
+  background-color: #D19C97;
+  color: white;
+  border: 1px solid #D19C97;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+.shop-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-products-div {
+  flex-basis: 15%;
+}
+
+.list-products-div {
+  flex-basis: 80%;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-items {
+  margin-bottom: 2.5rem;
+}
+
+.filter-items h5 {
+  font-weight: bolder;
+  font-size: 17px;
+  margin-bottom: 1.3rem;
+}
+
+.filter-item {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.filter-item label {
+  margin-right: 7px;
+}
+
+.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.custom-checkbox:checked {
+  background-color: #D19C97;
+}
+
+.control-label {
+  display: inline-block;
+  color: #3e3b3b;
+}
+
+.input-group {
+  display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: nowrap;
+}
+
+.input-group input {
+  width: 38rem;
+  height: 2.5rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.input-group-append {
+  background-color: #fff;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-right: none;
+    cursor: pointer;
+}
+
+.serach-input:focus {
+  outline: none !important;
+}
+
+.pagination-div {
+  direction: ltr;
+  margin-top: 2.5rem;
+}
+
