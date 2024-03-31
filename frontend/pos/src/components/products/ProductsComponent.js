@@ -1,10 +1,77 @@
+import { useState, useEffect } from "react";
+import axiosInstance from '../axiosInstance/axiosInstance'
 import { Link } from "react-router-dom";
-import image from '../../assets/images/product1.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 function ProductsComponent() {
+
+    const [products, setProducts] = useState([]);
+    const [q, setQ] = useState('');
+    const [searchParam] = useState(["name"]);
+    const [filterParam , setFilterParam] = useState("all");
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 9;
+
+    const data = Object.values(products);
+
+    const priceRanges = [
+        { range: "همه قیمت ها", index: "all" },
+        { range: "0 - 3", index: "0-3" },
+        { range: "2000000 - 2500000", index: "2000000-2500000" },
+    ];
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axiosInstance.get('products/');
+                if (response.status === 200) {
+                    setProducts(response.data);
+                } else {
+                    console.error('Failed to fetch products. Status code:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+    
+        fetchProducts();
+    
+    }, []);
+
+
+    function Search(products) {
+        return products.filter((product) => {
+            if (filterParam === "all") {
+                return true; 
+            } else if (filterParam !== "all" && filterParam.includes("-")) {
+                const [minPrice, maxPrice] = filterParam.split('-');
+                const productPrice = parseInt(product.price);
+                return productPrice >= parseInt(minPrice) && productPrice <= parseInt(maxPrice);
+            }
+            return false; 
+        }).filter((product) => {
+            return searchParam.some((newProduct) => {
+                return (
+                    product[newProduct]
+                    .toString()
+                    .toLowerCase()
+                    .indexOf(q.toLowerCase()) > -1
+                );
+            });
+        });
+    }
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = Search(data).slice(
+    indexOfFirstItem,
+    indexOfLastItem
+      );
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <>
             <section className="px-4 mb-24">
@@ -45,61 +112,20 @@ function ProductsComponent() {
                             <div className="">
                                 <h5>فیلتر براساس قیمت</h5>
                                 <form>
-                                <div className="filter-item">
+                                {priceRanges.map((priceRangeObj, index) => (
+                                <div className="filter-item" key={index}>
                                     <input
                                         type="checkbox"
                                         className="custom-checkbox"
-                                        id="custom-label"
+                                        checked={filterParam === priceRangeObj.index}
+                                        onChange={() => setFilterParam(priceRangeObj.index)}
+                                        id={`price-${priceRangeObj.index}`}
                                     />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
+                                    <label className="control-label" htmlFor={`price-${priceRangeObj.index}`}>
+                                        {priceRangeObj.range}
                                     </label>
                                 </div>
-
-                                <div className="filter-item">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-checkbox"
-                                        id="custom-label"
-                                    />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
-                                    </label>
-                                </div>
-
-                                <div className="filter-item">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-checkbox"
-                                        id="custom-label"
-                                    />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
-                                    </label>
-                                </div>
-
-                                <div className="filter-item">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-checkbox"
-                                        id="custom-label"
-                                    />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
-                                    </label>
-                                </div>
-
-                                <div className="filter-item">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-checkbox"
-                                        id="custom-label"
-                                    />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
-                                    </label>
-                                </div>
-
+                                ))}
                                 </form>
                             </div>
                         </div>
@@ -115,52 +141,8 @@ function ProductsComponent() {
                                         className="custom-checkbox"
                                         id="custom-label"
                                     />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
-                                    </label>
-                                </div>
-
-                                <div className="filter-item">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-checkbox"
-                                        id="custom-label"
-                                    />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
-                                    </label>
-                                </div>
-
-                                <div className="filter-item">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-checkbox"
-                                        id="custom-label"
-                                    />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
-                                    </label>
-                                </div>
-
-                                <div className="filter-item">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-checkbox"
-                                        id="custom-label"
-                                    />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
-                                    </label>
-                                </div>
-
-                                <div className="filter-item">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-checkbox"
-                                        id="custom-label"
-                                    />
-                                    <label className="control-label" htmlFor="custom-label">
-                                        همه قیمت ها
+                                    <label className="control-label">
+                                        همه رنگ ها
                                     </label>
                                 </div>
                                 </form>
@@ -175,7 +157,12 @@ function ProductsComponent() {
                         <div className="products-search">
                             <form action="">
                                 <div className="input-group">
-                                    <input type="text" className="serach-input" placeholder="جستجوی نام محصول ..."
+                                    <input 
+                                    type="text" 
+                                    className="serach-input" 
+                                    placeholder="جستجوی نام محصول ..."
+                                    value={q}
+                                    onChange={(e) => setQ(e.target.value)}
                                     />
                                     <div className="input-group-append">
                                         <span className="input-group-text bg-transparent text-primary">
@@ -188,200 +175,58 @@ function ProductsComponent() {
 
                         <div className="list-products">
                             <div className='product-container'>
-                                    <div className='product-div'>
 
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
+                            {currentItems.map( product => (
 
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
+                                <div className='product-div' key={product.id}>
+                                {console.log(product)}
 
-                                    <div className='product-div'>
+                                    <Link to={`/product/${product.slug}`}>
+                                        <div className='product-image-div'>
+                                            <img src={product.image.url} alt={product.name} />
+                                        </div>
+                                        <div className='product-title-div'>
+                                            <h6>{product.name}</h6>
+                                            <h6>{product.price} ریال</h6>
+                                        </div>
+                                    </Link>
 
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
+                                        <div className='product-cart-div'>
+                                            <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
+                                            <Link to={'/shop'}>افزودن به سبد خرید</Link>
+                                        </div>
+                                </div>
 
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
-
-                                    <div className='product-div'>
-
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
-
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
-
-                                    <div className='product-div'>
-
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
-
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
-
-                                    <div className='product-div'>
-
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
-
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
-
-                                    <div className='product-div'>
-
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
-
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
-
-                                    <div className='product-div'>
-
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
-
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
-
-                                    <div className='product-div'>
-
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
-
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
-
-                                    <div className='product-div'>
-
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
-
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
-
-                                    <div className='product-div'>
-
-                                        <Link to={'/'}>
-                                            <div className='product-image-div'>
-                                                <img src={image} alt='product' />
-                                            </div>
-                                            <div className='product-title-div'>
-                                                <h6>کارتخوان g3</h6>
-                                                <h6>12000000 ریال</h6>
-                                            </div>
-                                        </Link>
-
-                                            <div className='product-cart-div'>
-                                                <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                                <Link to={'/shop'}>افزودن به سبد خرید</Link>
-                                            </div>
-                                    </div>
+                                ))}
                                     
                             </div>
                         </div>
 
+
                         <div className="pagination-div">
-                            <div class="pagination">
-                                <a href="#">&laquo;</a>
-                                <a href="#">1</a>
-                                <a href="#" class="active">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#">6</a>
-                                <a href="#">&raquo;</a>
-                            </div>
+                        <nav aria-label="Page navigation">
+                        <ul className="pagination">
+                            <li className={`${currentPage === 1 ? 'disabled' : ''}`}>
+                                <a className="page-link" aria-label="Previous" onClick={() => paginate(currentPage - 1)}>
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span className="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            {Array.from({ length: Math.ceil(Search(data).length / itemsPerPage) }, (_, index) => (
+                                <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                                    <a className="page-link" onClick={() => paginate(index + 1)}>
+                                        {index + 1}
+                                    </a>
+                                </li>
+                            ))}
+                            <li className={`page-item ${currentPage === Math.ceil(Search(data).length / itemsPerPage) ? 'disabled' : ''}`}>
+                                <a className="page-link"  aria-label="Next" onClick={() => paginate(currentPage + 1)}>
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span className="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                         </div>
 
                     </div>

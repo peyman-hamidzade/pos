@@ -11,20 +11,23 @@ function LastProducts() {
 
 
     useEffect(() => {
-        async function fetchProducts() {
-        try {
-          const response = await axiosInstance.get('products/');
-          if (response.status !== 200) {
-          }
-          setProducts(response.data);
-        } catch (error) {
-          console.error('Error:', error)
-        }
-    };
-
-    fetchProducts();
-
+        const fetchProducts = async () => {
+            try {
+                const response = await axiosInstance.get('products/');
+                if (response.status === 200) {
+                    setProducts(response.data);
+                } else {
+                    console.error('Failed to fetch products. Status code:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+    
+        fetchProducts();
+    
     }, []);
+    
 
     return (
         <>

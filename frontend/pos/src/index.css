@@ -2945,6 +2945,7 @@ details.collapse summary::-webkit-details-marker{
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  width: 60rem;
 }
 
 .product-div {
@@ -3022,7 +3023,9 @@ details.collapse summary::-webkit-details-marker{
 }
 
 .pagination {
-  display: inline-block;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pagination a {
@@ -3034,10 +3037,15 @@ details.collapse summary::-webkit-details-marker{
   border: 1px solid #ddd;
 }
 
-.pagination a.active {
-  background-color: #D19C97;
-  color: white;
-  border: 1px solid #D19C97;
+.pagination li {
+  cursor: pointer;
+}
+
+.pagination li.active {
+  z-index: 3;
+    color: #fff;
+    background-color: #D19C97;
+    border-color: #D19C97;
 }
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
