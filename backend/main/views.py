@@ -48,3 +48,13 @@ def ticket(request):
             return Response({"message":"پیام شما با موفقیت ثبت شد."}, status=status.HTTP_201_CREATED)
         return Response(ticket_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['GET'])
+def product_detail(request, slug):
+    try:
+        product = Product.objects.get(slug=slug)
+        product_serializer = ProductSerializer(product)
+        return Response(product_serializer.data, status=status.HTTP_200_OK)
+    except Product.DoesNotExist:
+        return Response(None, status=status.HTTP_404_NOT_FOUND)
+    
