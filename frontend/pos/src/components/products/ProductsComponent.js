@@ -141,7 +141,7 @@ function ProductsComponent() {
                                         className="custom-checkbox"
                                         id="custom-label"
                                     />
-                                    <label className="control-label">
+                                    <label className="control-label" >
                                         همه رنگ ها
                                     </label>
                                 </div>
