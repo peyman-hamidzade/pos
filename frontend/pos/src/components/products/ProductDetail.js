@@ -4,10 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faMinus, faPlus, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import productimage from '../../assets/images/product1.jpg'
-import t_express from '../../assets/images/t-express.png'
-import t_origin from '../../assets/images/t-origin.png'
-import t_payment from '../../assets/images/t-payment.png'
-import t_support from '../../assets/images/t-support.png'
+
 
 
 function ProductDetail () {
@@ -73,7 +70,7 @@ function ProductDetail () {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                 </svg>
                                 
-                                <Link to={''} className="mr-1 text-sm font-medium">فروشگاه</Link>
+                                <Link to={'/shop'} className="mr-1 text-sm font-medium">فروشگاه</Link>
                             </div>
                         </li>
                         <li>
@@ -82,7 +79,7 @@ function ProductDetail () {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                 </svg>
                                 
-                                <Link to={''} className="mr-1 text-sm font-medium">جزییات محصول</Link>
+                                <Link to={''} className="mr-1 text-sm font-medium">{product.name}</Link>
                             </div>
                         </li>
                     </ol>
@@ -95,7 +92,7 @@ function ProductDetail () {
                             <div id="" className="" data-ride="">
                                 <div className="">
                                     <div className="">
-                                        <img className="product-img" src={productimage} alt="Image" />
+                                        <img className="product-img" src={product.image} alt={product.name} />
                                     </div>
                                 </div>
                                 <a className="" data-slide="prev">
@@ -108,10 +105,10 @@ function ProductDetail () {
                         </div>
 
                         <div className="item-info">
-                            <h1 className="">کارتخوان me31</h1>
+                            <h1 className="">{product.name}</h1>
 
-                            <h3 className="">15000 000 ریال</h3>
-                            <p className="item-information">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
+                            <h3 className="">{product.price}ریال</h3>
+                            <p className="item-information">{product.description}</p>
                             <div className="item-color">
                                 <p className="">رنگ ها :</p>
                                 <form className="item-color-form">
@@ -170,8 +167,8 @@ function ProductDetail () {
                         <div className="tab-content">
                             <div className={`tab-pane ${activeTab === 'description' ? 'active' : ''}`} id="tab-pane-description">
                                 <h4 className="tab-title">توضیحات محصول</h4>
-                                <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
-                                <p>Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem tempor. Gubergren amet amet labore sadipscing clita clita diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore voluptua sit rebum. Ea erat sed et diam takimata sed justo. Magna takimata justo et amet magna et.</p>
+                                <p>{product.description}</p>
+                                <p>{product.description}</p>
                             </div>
                             <div className={`tab-pane ${activeTab === 'reviews' ? 'active' : ''}`} id="tab-pane-reviews">
                                 <div className="review-div">
