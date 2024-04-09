@@ -2,6 +2,7 @@ import Navbar from "../components/navbar/Navbar";
 import HomeSlide from "../components/slide/HomeSlide";
 import LastProducts from "../components/products/LastProducts";
 import HomeServices from "../components/services/HomeServices";
+import HomeReviews from "../components/reviews/HomeReviews";
 import HomeContact from "../components/contact/HomeContact";
 import TopFooter from "../components/topFooter/TopFooter";
 import Footer from "../components/footer/Footer";
@@ -14,6 +15,7 @@ function Home () {
                 <HomeSlide />
                 <LastProducts />
                 <HomeServices />
+                <HomeReviews />
                 <HomeContact />
                 <TopFooter />
                 <Footer />
