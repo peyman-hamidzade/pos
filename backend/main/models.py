@@ -1,7 +1,14 @@
+
 from django.db import models
 from django.utils.text import slugify
 
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     name = models.CharField(max_length = 255)
@@ -19,6 +26,7 @@ class Product(models.Model):
     ]
     color = models.CharField(max_length=10, choices=COLOR_CHOICES, null=True)
     count = models.PositiveIntegerField(default=0)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -30,6 +38,26 @@ class Product(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments')
+    user_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    review = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'commented by {self.user_name} on {self.product.name}.'
+
+    class Meta:
+            ordering = ['-created',]
+            indexes = [
+            models.Index(fields=['created']),
+            ]
+
 
 class Services(models.Model):
     image = models.ImageField(upload_to='meida/')

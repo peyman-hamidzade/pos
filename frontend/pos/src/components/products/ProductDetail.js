@@ -1,3 +1,4 @@
+      
 import { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance/axiosInstance";
 import { useParams, Link } from 'react-router-dom';
@@ -10,9 +11,12 @@ import productimage from '../../assets/images/product1.jpg'
 function ProductDetail () {
 
     const [product, setProduct] = useState([]);
-    const {slug} = useParams();
+    const [comments, setComments] = useState([]);
+    const { slug } = useParams();
     const [quantity, setQuantity] = useState(1);
     const [activeTab, setActiveTab] = useState("description");
+    const [commentCount, setCommentCount] = useState(0);
+    const [similarProduct, setSimilarProduct] = useState([]);
 
 
     useEffect(() => {
@@ -20,18 +24,37 @@ function ProductDetail () {
             try {
                 const response = await axiosInstance.get(`product/${slug}/`);
                 if (response.status === 200) {
-                    setProduct(response.data);
+                    setProduct(response.data.product);
+                    setSimilarProduct(response.data.similar_products);
                 } else {
-                    console.error('Failed to fetch products. Status code:', response.status);
+                    console.error('Failed to fetch product. Status code:', response.status);
                 }
             } catch (error) {
-                console.error('Error fetching products:', error);
+                console.error('Error fetching product:', error);
             }
         };
-    
+        
         fetchProduct();
-    
-    }, []);
+    }, [slug]);
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const response = await axiosInstance.get(`products/${slug}/comments/`);
+                if (response.status === 200) {
+                    setComments(response.data.comments);
+                    setCommentCount(response.data.comment_count)
+                    console.log(response.data)
+                } else {
+                    console.error('Failed to fetch comments. Status code:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching comments:', error);
+            }
+        };
+        
+        fetchComments();
+    }, [slug]);
 
     const decreaseQuantity = () => {
         if (quantity > 1) {
@@ -50,7 +73,40 @@ function ProductDetail () {
     const handleTabChange = (tab) => {
         setActiveTab(tab);
     };
+
+    const [formData, setFormData] = useState({
+        review: '',
+        user_name: '',
+        email: ''
+    });
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
     
+        try {
+          const response = await axiosInstance.post(`products/${slug}/comments/`, formData);
+    
+
+          console.log('Response:', response.data);
+    
+          
+          setFormData({
+            review: '',
+            user_name: '',
+            email: ''
+          });
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+
+      const handleInputChange = (e) => {
+        setFormData({
+          ...formData,
+          [e.target.id]: e.target.value
+        });
+      };
 
     return (
         <>
@@ -161,7 +217,7 @@ function ProductDetail () {
                                 توضیحات
                             </a>
                             <a className={`product-tab ${activeTab === 'reviews' ? 'active' : ''}`} onClick={() => handleTabChange('reviews')}>
-                                نظرات (0)
+                                نظرات ({commentCount})
                             </a>
                         </div>
                         <div className="tab-content">
@@ -173,33 +229,63 @@ function ProductDetail () {
                             <div className={`tab-pane ${activeTab === 'reviews' ? 'active' : ''}`} id="tab-pane-reviews">
                                 <div className="review-div">
                                     <div className="review-item">
-                                    <h4 className="tab-title">Reviews for "Colorful Stylish Shirt"</h4>
-                                        <div className="review-info">
-                                            <img src={productimage} alt="Image" className="review-avatar" style={{ width: '45px' }} />
-                                            <div className="review-details">
-                                                <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                                <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                                    <h4 className="tab-title">نظرات برای "{product.name}"</h4>
+                                    {comments.length > 0 ? (
+                                        comments.map((comment) => (
+                                            <div className="review-info" key={comment.id}>
+                                                <>
+                                                    <img src={productimage} alt={productimage} className="review-avatar" style={{ width: '45px' }} />
+                                                    <div className="review-details">
+                                                        <h6>{comment.user_name}<small> - <i>{comment.created}</i></small></h6>
+                                                        <p>{comment.review}</p>
+                                                    </div>
+                                                </>
                                             </div>
+                                        ))
+                                    ) : (
+                                        <div>
+                                            <p>نظری ثبت نشده است.</p>
+                                            <p>اولین نفری باشید که نظر می دهید.</p>
                                         </div>
+                                    )}
                                     </div>
                                     <div className="leave-review">
-                                        <h4 className="tab-title">Leave a review</h4>
-                                        <small>Your email address will not be published. Required fields are marked *</small>
-                                        <form className="review-form">
+                                        <h4 className="tab-title">افزودن نظر</h4>
+                                        <small>آدرس ایمیل شما نشان داده نخواهد شد.فیلد های اجباری با علامت * مشخص شده اند.</small>
+                                        <form className="review-form" onSubmit={handleSubmit}>
                                             <div className="form-group">
-                                                <label htmlFor="message">Your Review *</label>
-                                                <textarea id="message" cols="30" rows="5" className="form-control"></textarea>
+                                                <label htmlFor="review">نظر شما:*</label>
+                                                <textarea 
+                                                value={formData.review}
+                                                onChange={handleInputChange}
+                                                required                                      
+                                                id="review" cols="30" rows="5" 
+                                                className="form-control"></textarea>
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="name">Your Name *</label>
-                                                <input type="text" className="form-control" id="name" />
+                                                <label htmlFor="user_name">نام: *</label>
+                                                <input 
+                                                type="text"
+                                                id="user_name"
+                                                className="form-control"
+                                                value={formData.user_name}
+                                                onChange={handleInputChange}
+                                                required
+                                                />
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="email">Your Email *</label>
-                                                <input type="email" className="form-control" id="email" />
+                                                <label htmlFor="email">ایمیل: *</label>
+                                                <input 
+                                                type="email"
+                                                id="email"
+                                                className="form-control"
+                                                value={formData.email}
+                                                onChange={handleInputChange}
+                                                required
+                                                />
                                             </div>
                                             <div className="form-group">
-                                                <input type="submit" value="Leave Your Review" className="review-btn" />
+                                                <input type="submit" value="ثبت نظر" className="review-btn" />
                                             </div>
                                         </form>
                                     </div>
@@ -226,15 +312,17 @@ function ProductDetail () {
                     </div>
                     
                     <div className='product-container'>
+                        {similarProduct.map((similar_product) => (
+
 
                         <div className='product-div'>
                             <Link to={'/'}>
                                 <div className='product-image-div'>
-                                    <img src={productimage} alt='product' />
+                                    <img src={productimage} alt={similar_product.name} />
                                 </div>
                                 <div className='product-title-div'>
-                                    <h6>{}</h6>
-                                    <h6>{} ریال</h6>
+                                    <h6>{similar_product.name}</h6>
+                                    <h6>{similar_product.price} ریال</h6>
                                 </div>
                             </Link>
 
@@ -243,6 +331,8 @@ function ProductDetail () {
                                     <Link to={'/shop'}>افزودن به سبد خرید</Link>
                                 </div>
                         </div>
+
+                        ))}
                     </div>
 
                 </div>

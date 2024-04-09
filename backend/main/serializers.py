@@ -1,5 +1,7 @@
+
 from rest_framework import serializers
-from .models import Product, Services, Faq, Ticket
+from .models import Product, Services, Faq, Ticket, Comment, Category
+
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +22,8 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = '__all__' 
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
