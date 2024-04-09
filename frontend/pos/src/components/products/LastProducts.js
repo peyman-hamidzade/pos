@@ -15,7 +15,7 @@ function LastProducts() {
             try {
                 const response = await axiosInstance.get('products/');
                 if (response.status === 200) {
-                    setProducts(response.data);
+                    setProducts(response.data.slice(-4));
                 } else {
                     console.error('Failed to fetch products. Status code:', response.status);
                 }
@@ -50,7 +50,7 @@ function LastProducts() {
                             <div className='product-div' key={product.id}>
                             {console.log(product)}
 
-                                <Link to={'/'}>
+                                <Link to={`product/${product.slug}/`}>
                                     <div className='product-image-div'>
                                         <img src={product.image.url} alt={product.name} />
                                     </div>
