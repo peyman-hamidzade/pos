@@ -80,6 +80,9 @@ function ProductDetail () {
         email: ''
     });
 
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -87,17 +90,26 @@ function ProductDetail () {
         try {
           const response = await axiosInstance.post(`products/${slug}/comments/`, formData);
     
+          const newComment = response.data;
+          setComments([newComment, ...comments]);
 
-          console.log('Response:', response.data);
-    
-          
+          setCommentCount(commentCount + 1);
+
           setFormData({
             review: '',
             user_name: '',
             email: ''
           });
+
+          setSuccessMessage('نظر شما با موفقیت ثبت شد.');
+
+          setErrorMessage('');
+
         } catch (error) {
           console.error('Error:', error);
+
+          setErrorMessage('خطایی رخ داد. لطفا دوباره تلاش کنید.');
+          setSuccessMessage('');
         }
       };
 
@@ -166,27 +178,11 @@ function ProductDetail () {
                             <h3 className="">{product.price}ریال</h3>
                             <p className="item-information">{product.description}</p>
                             <div className="item-color">
-                                <p className="">رنگ ها :</p>
+                                <p className="">رنگ :</p>
                                 <form className="item-color-form">
                                     <div className="item-color-div">
-                                        <input type="radio" className="item-color-input" id="color-1" name="color" />
-                                        <label className="item-color-label" for="color-1">Black</label>
-                                    </div>
-                                    <div className="item-color-div">
-                                        <input type="radio" className="item-color-input" id="color-2" name="color" />
-                                        <label className="item-color-label" for="color-2">White</label>
-                                    </div>
-                                    <div className="item-color-div">
-                                        <input type="radio" className="item-color-input" id="color-3" name="color" />
-                                        <label className="item-color-label" for="color-3">Red</label>
-                                    </div>
-                                    <div className="item-color-div">
-                                        <input type="radio" className="item-color-input" id="color-4" name="color" />
-                                        <label className="item-color-label" for="color-4">Blue</label>
-                                    </div>
-                                    <div className="item-color-div">
-                                        <input type="radio" className="item-color-input" id="color-5" name="color" />
-                                        <label className="item-color-label" for="color-5">Green</label>
+                                        <input type="radio" className="item-color-input" id="color-1" name="color"/>
+                                        <label className="item-color-label" for="color-1">{product.color}</label>
                                     </div>
                                 </form>
                             </div>
@@ -288,6 +284,12 @@ function ProductDetail () {
                                                 <input type="submit" value="ثبت نظر" className="review-btn" />
                                             </div>
                                         </form>
+                                        {successMessage && (
+                                            <b style={{ color: 'green' }}>{successMessage}</b>
+                                        )}
+                                        {errorMessage && (
+                                            <b style={{ color: 'red' }}>{errorMessage}</b>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -316,7 +318,7 @@ function ProductDetail () {
 
 
                         <div className='product-div'>
-                            <Link to={'/'}>
+                            <Link to={`/product/${similar_product.slug}/`}>
                                 <div className='product-image-div'>
                                     <img src={productimage} alt={similar_product.name} />
                                 </div>

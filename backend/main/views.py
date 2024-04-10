@@ -94,7 +94,7 @@ def create_comment(request, product):
 
 def list_comments(product, slug):
     try:
-        comments = Comment.objects.filter(product=product, active=True)
+        comments = Comment.objects.filter(product=product, active=True).order_by('-created')
         comment_count = Comment.objects.filter(product__slug=slug, active=True).count()
         comments_serializer = CommentSerializer(comments, many=True)
         return Response({"comments": comments_serializer.data, "comment_count": comment_count}, status=status.HTTP_200_OK)
