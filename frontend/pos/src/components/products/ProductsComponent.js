@@ -16,6 +16,14 @@ function ProductsComponent() {
 
     const data = Object.values(products);
 
+    const [colorFilter, setColorFilter] = useState("all");
+
+    const colorOptions = [
+        { color: "همه رنگ‌ها", index: "all" },
+        { color: "قرمز", index: "red" },
+        { color: "آبی", index: "blue" },
+    ];
+
     const priceRanges = [
         { range: "همه قیمت ها", index: "all" },
         { range: "0 - 3", index: "0-3" },
@@ -26,7 +34,7 @@ function ProductsComponent() {
         const fetchProducts = async () => {
             try {
                 const response = await axiosInstance.get('products/');
-                if (response.status === 200) {
+                if (response.status === 200) { 
                     setProducts(response.data);
                 } else {
                     console.error('Failed to fetch products. Status code:', response.status);
@@ -60,6 +68,12 @@ function ProductsComponent() {
                     .indexOf(q.toLowerCase()) > -1
                 );
             });
+        }).filter((product) => {
+            if (colorFilter === "all") {
+                return true;
+            } else {
+                return product.color === colorFilter;
+            }
         });
     }
 
@@ -131,23 +145,27 @@ function ProductsComponent() {
                         </div>
 
                         <div className="filter-items">
-
                             <div className="">
                                 <h5>فیلتر براساس رنگ</h5>
                                 <form>
-                                <div className="filter-item">
-                                    <input
-                                        type="checkbox"
-                                        className="custom-checkbox"
-                                        id="custom-label"
-                                    />
-                                    <label className="control-label" >
-                                        همه رنگ ها
-                                    </label>
-                                </div>
+                                    {colorOptions.map((option) => (
+                                        <div className="filter-item" key={option.index}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-checkbox"
+                                                id={`color-${option.index}`}
+                                                value={option.index}
+                                                name="color"
+                                                checked={colorFilter === option.index}
+                                                onChange={(e) => setColorFilter(e.target.value)}
+                                            />
+                                            <label htmlFor={`color-${option.index}`} className="control-label">
+                                                {option.color}
+                                            </label>
+                                        </div>
+                                    ))}
                                 </form>
                             </div>
-
                         </div>
 
                     </div>

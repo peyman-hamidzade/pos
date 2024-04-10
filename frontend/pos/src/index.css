@@ -3602,3 +3602,7 @@ details.collapse summary::-webkit-details-marker{
   transition: 0.3s;
   color: #fff;
 }
+
+.swiper-slide {
+  cursor: grab;
+}
