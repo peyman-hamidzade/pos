@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import slide1 from '../../assets/images/slider-1.jpg'
-import slide2 from '../../assets/images/slider-2.jpg'
+import slide1 from '../../assets/images/pos-slide1.png'
+import slide2 from '../../assets/images/pos-slide2.png'
 
 function HomeSlide () {
     const [currentSlide, setCurrentSlide] = useState(1);
@@ -24,9 +24,9 @@ function HomeSlide () {
                         <div className="grid grid-cols-12 gap-8">
                         <div className="col-span-12 lg:col-span-4 order-2 lg:order-1">
                             <div className="leading-8 mt-8">
-                                <span className="font-YekanBakh-Bold bg-orange-200 rounded-full py-1 px-4">گروه نرم افزاری فرجام</span>
+                                <span className="font-YekanBakh-Bold bg-orange-200 rounded-full py-1 px-4">شرکت ارتباط پـاسـارگـاد</span>
                                 <h2 className="font-YekanBakh-ExtraBlack text-4xl my-6">ارتـبـاط پـاسـارگـاد </h2>
-                                <p className='text-justify'>تیم شرکت ارتباط پاسارگاد که با هدف فروش و ثبت کارتخوان تاسیس شده است ...</p>
+                                <p className='text-justify'>ما یک تیم متخصص در زمینه فروش، ثبت و تعمیر کارتخوان های امانی و تجاری هستیم. با سال‌ها تجربه در این حوزه، به عنوان یکی از پیشگامان در ارائه خدمات مرتبط با کارتخوان...</p>
                                 <div className="flex justify-end">
                                 <Link to={'/about'} className="mt-4 py-1 px-7 rounded-full bg-orange-200 hover:duration-300 font-YekanBakh-SemiBold">بیشتر بخوانید...</Link>
                                 <div className="absolute bottom-0 lg:bottom-2 right-0">
@@ -41,7 +41,7 @@ function HomeSlide () {
                             <div className="swiper mySwiper">
                                 <div className="swiper-wrapper">
                                     <div className="swiper-slide">
-                                    <Link to={'/'}>
+                                    <Link to={'/shop'}>
                                     <img
                                     className={`object-cover w-full rounded-xl ${currentSlide === 1 ? 'fade-in' : 'fade-out'}`}
                                     src={currentSlide === 1 ? slide1 : slide2}

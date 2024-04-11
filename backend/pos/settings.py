@@ -65,7 +65,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://ertebatpasargad.ir",
     "https://ertebatpasargad.ir",
-    "https://frontertebatpasargad.liara.run/"
+    "https://frontertebatpasargad.liara.run"
 ]
 
 CORS_ALLOW_METHODS = [

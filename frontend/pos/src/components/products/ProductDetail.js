@@ -1,10 +1,8 @@
-      
 import { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance/axiosInstance";
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus, faMinus, faPlus, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import productimage from '../../assets/images/product1.jpg'
+import { faCartPlus, faMinus, faPlus, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -160,7 +158,7 @@ function ProductDetail () {
                             <div id="" className="" data-ride="">
                                 <div className="">
                                     <div className="">
-                                        <img className="product-img" src={product.image} alt={product.name} />
+                                        <img className="product-img" src={`https://epasargad.liara.run/${product.image}`} alt={product.name} />
                                     </div>
                                 </div>
                                 <a className="" data-slide="prev">
@@ -220,7 +218,6 @@ function ProductDetail () {
                             <div className={`tab-pane ${activeTab === 'description' ? 'active' : ''}`} id="tab-pane-description">
                                 <h4 className="tab-title">توضیحات محصول</h4>
                                 <p>{product.description}</p>
-                                <p>{product.description}</p>
                             </div>
                             <div className={`tab-pane ${activeTab === 'reviews' ? 'active' : ''}`} id="tab-pane-reviews">
                                 <div className="review-div">
@@ -230,7 +227,7 @@ function ProductDetail () {
                                         comments.map((comment) => (
                                             <div className="review-info" key={comment.id}>
                                                 <>
-                                                    <img src={productimage} alt={productimage} className="review-avatar" style={{ width: '45px' }} />
+                                                    <FontAwesomeIcon icon={faUser} className="review-avatar" style={{ width: '45px' }} />
                                                     <div className="review-details">
                                                         <h6>{comment.user_name}<small> - <i>{comment.created}</i></small></h6>
                                                         <p>{comment.review}</p>
@@ -320,7 +317,7 @@ function ProductDetail () {
                         <div className='product-div'>
                             <Link to={`/product/${similar_product.slug}/`}>
                                 <div className='product-image-div'>
-                                    <img src={productimage} alt={similar_product.name} />
+                                    <img src={`https://epasargad.liara.run/${similar_product.image}`} alt={similar_product.name} />
                                 </div>
                                 <div className='product-title-div'>
                                     <h6>{similar_product.name}</h6>

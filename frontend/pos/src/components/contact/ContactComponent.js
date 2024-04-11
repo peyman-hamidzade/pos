@@ -131,7 +131,7 @@ function ContactComponent () {
                                         <p className="font-YekanBakh-Bold text-base mb-2">ایمیــل:</p>
                                         <a className="text-orange-500 leading-relaxed">test@gmail.com</a>
                                         <p className="font-YekanBakh-Bold text-base mb-2">تمـاس:</p>
-                                        <p className="leading-relaxed">09909820897</p>
+                                        <p className="leading-relaxed">09052263270</p>
                                     </div>
                                 </div>
                             </div>

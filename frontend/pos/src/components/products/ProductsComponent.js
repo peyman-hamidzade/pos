@@ -21,13 +21,17 @@ function ProductsComponent() {
     const colorOptions = [
         { color: "همه رنگ‌ها", index: "all" },
         { color: "قرمز", index: "red" },
+        { color: "سفید", index: "white" },
+        { color: "مشکی", index: "black" },
         { color: "آبی", index: "blue" },
     ];
 
     const priceRanges = [
         { range: "همه قیمت ها", index: "all" },
-        { range: "0 - 3", index: "0-3" },
-        { range: "2000000 - 2500000", index: "2000000-2500000" },
+        { range: "2,000,000 - 3,000,000", index: "2000000-3000000" },
+        { range: "3,000,000 - 4,000,000", index: "3000000-4000000" },
+        { range: "4,000,000 - 5,000,000", index: "4000000-5000000" },
+        { range: "5,000,000 - 6,000,000", index: "5000000-6000000" },
     ];
 
     useEffect(() => {
@@ -201,7 +205,7 @@ function ProductsComponent() {
 
                                     <Link to={`/product/${product.slug}`}>
                                         <div className='product-image-div'>
-                                            <img src={product.image.url} alt={product.name} />
+                                            <img src={`https://epasargad.liara.run/${product.image}`} alt={product.name} />
                                         </div>
                                         <div className='product-title-div'>
                                             <h6>{product.name}</h6>

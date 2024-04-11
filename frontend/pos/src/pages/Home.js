@@ -15,8 +15,8 @@ function Home () {
                 <HomeSlide />
                 <LastProducts />
                 <HomeServices />
-                <HomeReviews />
                 <HomeContact />
+                <HomeReviews />
                 <TopFooter />
                 <Footer />
             </body>

@@ -1,4 +1,3 @@
-import image from '../../assets/images/product1.jpg'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
@@ -52,7 +51,7 @@ function LastProducts() {
 
                                 <Link to={`product/${product.slug}/`}>
                                     <div className='product-image-div'>
-                                        <img src={product.image.url} alt={product.name} />
+                                        <img src={`https://epasargad.liara.run/${products.image}`} alt={product.name} />
                                     </div>
                                     <div className='product-title-div'>
                                         <h6>{product.name}</h6>

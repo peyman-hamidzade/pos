@@ -53,7 +53,7 @@ function HomeServices () {
                             
                             <div key={service.id} className="bg-white p-6 rounded-3xl leading-8 transform hover:-translate-y-1 duration-300 transition-transform cursor-pointer">
                                 <div className="w-16 mb-4">
-                                    <img src={service.image} alt={service.title} />  
+                                    <img src={`https://epasargad.liara.run/${service.image}`} alt={service.title} />  
                                 </div>
                                 
                                 <div className="flex items-center mb-4">
