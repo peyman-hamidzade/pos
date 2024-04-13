@@ -209,7 +209,7 @@ function ProductsComponent() {
                                         </div>
                                         <div className='product-title-div'>
                                             <h6>{product.name}</h6>
-                                            <h6>{product.price} ریال</h6>
+                                            <h6>{product.price} تومان</h6>
                                         </div>
                                     </Link>
 

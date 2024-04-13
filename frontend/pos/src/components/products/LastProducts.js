@@ -51,11 +51,11 @@ function LastProducts() {
 
                                 <Link to={`product/${product.slug}/`}>
                                     <div className='product-image-div'>
-                                        <img src={`https://epasargad.liara.run/${products.image}`} alt={product.name} />
+                                        <img src={`https://epasargad.liara.run/${product.image}`} alt={product.name} />
                                     </div>
                                     <div className='product-title-div'>
                                         <h6>{product.name}</h6>
-                                        <h6>{product.price} ریال</h6>
+                                        <h6>{product.price} تومان</h6>
                                     </div>
                                 </Link>
 

@@ -118,6 +118,19 @@ function ProductDetail () {
         });
       };
 
+
+      const truncateText = (description, numWords) => {
+        if (typeof description !== 'string' || !description.trim()) {
+            return '';
+        }
+    
+        const words = description.split(' ');
+        if (words.length > numWords) {
+            return words.slice(0, numWords).join(' ') + '...';
+        }
+        return description;
+    };
+
     return (
         <>
 
@@ -173,8 +186,8 @@ function ProductDetail () {
                         <div className="item-info">
                             <h1 className="">{product.name}</h1>
 
-                            <h3 className="">{product.price}ریال</h3>
-                            <p className="item-information">{product.description}</p>
+                            <h3 className="">{product.price}تومان</h3>
+                            <div className="item-information" dangerouslySetInnerHTML={{ __html: truncateText(product.description, 35) }} />
                             <div className="item-color">
                                 <p className="">رنگ :</p>
                                 <form className="item-color-form">
@@ -321,7 +334,7 @@ function ProductDetail () {
                                 </div>
                                 <div className='product-title-div'>
                                     <h6>{similar_product.name}</h6>
-                                    <h6>{similar_product.price} ریال</h6>
+                                    <h6>{similar_product.price} تومان</h6>
                                 </div>
                             </Link>
 
