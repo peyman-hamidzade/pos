@@ -1,8 +1,5 @@
-
 from django.db import models
-from django.utils.text import slugify
-
-
+from slugify import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -11,19 +8,20 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-    name = models.CharField(max_length = 255)
-    slug = models.SlugField(allow_unicode = True , unique=True, blank=True)
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(allow_unicode=True, unique=True, blank=True)
     price = models.PositiveIntegerField()
     image = models.ImageField(upload_to='media/')
-    created = models.DateTimeField(auto_now_add = True)
-    updated = models.DateTimeField(auto_now = True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
     COLOR_CHOICES = [
-    ('red', 'Red'),
-    ('blue', 'Blue'),
-    ('green', 'Green'),
-    ('black', 'Black'),
-    ('yellow', 'Yellow'),
-    ('white', 'White'),
+        ('red', 'Red'),
+        ('blue', 'Blue'),
+        ('green', 'Green'),
+        ('black', 'Black'),
+        ('yellow', 'Yellow'),
+        ('white', 'White'),
     ]
     device_status = models.CharField(max_length=50, null=True)
     color = models.CharField(max_length=10, choices=COLOR_CHOICES, null=True)
@@ -48,14 +46,24 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         ordering = ['-created',]
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            base_slug = persian_slugify(self.name)
+            slug = base_slug
+            counter = 1
+            while Product.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
         super().save(*args, **kwargs)
+
+def persian_slugify(value):
+    return slugify(value, separator='_')
+
 
 
 class Comment(models.Model):
