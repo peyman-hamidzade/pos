@@ -16,16 +16,34 @@ class Product(models.Model):
     price = models.PositiveIntegerField()
     image = models.ImageField(upload_to='media/')
     created = models.DateTimeField(auto_now_add = True)
-    updated = models.DateTimeField(auto_now_add = True)
-    description = models.TextField()
-    stock = models.PositiveIntegerField()
+    updated = models.DateTimeField(auto_now = True)
     COLOR_CHOICES = [
-        ('red', 'Red'),
-        ('blue', 'Blue'),
-        ('green', 'Green'),
+    ('red', 'Red'),
+    ('blue', 'Blue'),
+    ('green', 'Green'),
+    ('black', 'Black'),
+    ('yellow', 'Yellow'),
+    ('white', 'White'),
     ]
+    device_status = models.CharField(max_length=50, null=True)
     color = models.CharField(max_length=10, choices=COLOR_CHOICES, null=True)
-    count = models.PositiveIntegerField(default=0)
+    is_used = models.BooleanField(default=False)
+    charging_time = models.CharField(max_length=50, null=True)
+    charge_duration = models.CharField(max_length=50, null=True)
+    battery_capacity = models.CharField(max_length=50, null=True)
+    transaction_speed = models.CharField(max_length=20, null=True)
+    ram_memory = models.CharField(max_length=20, null=True)
+    display_type = models.CharField(max_length=20, null=True)
+    display_color = models.CharField(max_length=20, null=True)
+    display_size = models.CharField(max_length=20, null=True)
+    printer_type = models.CharField(max_length=50, null=True)
+    keyboard_type = models.CharField(max_length=20, null=True)
+    weight = models.CharField(max_length=20, null=True)
+    dimensions = models.CharField(max_length=50, null=True)
+    bluetooth = models.BooleanField(verbose_name="بلوتوث", null=True)
+    gprs = models.BooleanField(verbose_name="GPRS", null=True)
+    wifi = models.BooleanField(verbose_name="WiFi", null=True)
+    connected_banks = models.CharField(max_length=100, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -46,7 +64,7 @@ class Comment(models.Model):
     email = models.EmailField()
     review = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):

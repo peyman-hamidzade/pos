@@ -15,8 +15,8 @@ class ServiceAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'slug', 'created', 'stock', 'count', 'color']
-    list_filter = ['created', 'stock']
+    list_display = ['name', 'price', 'slug', 'created', 'color']
+    list_filter = ['created']
     search_fields = ['name','text']
     readonly_fields = ['created', 'slug']
     list_per_page = 20
