@@ -118,18 +118,23 @@ function ProductDetail () {
         });
       };
 
-
-      const truncateText = (description, numWords) => {
-        if (typeof description !== 'string' || !description.trim()) {
-            return '';
-        }
+      const convertToPersian = (color) => {
+        const colors = { 
+            blue: 'آبی', 
+            white: 'سفید', 
+            black: 'مشکی', 
+            green: 'سبز', 
+            yellow: 'زرد', 
+            red: 'قرمز'
+        };
     
-        const words = description.split(' ');
-        if (words.length > numWords) {
-            return words.slice(0, numWords).join(' ') + '...';
+        if (colors.hasOwnProperty(color)) {
+            return colors[color];
+        } else {
+            return color;
         }
-        return description;
     };
+
 
     return (
         <>
@@ -174,29 +179,26 @@ function ProductDetail () {
                                         <img className="product-img" src={`https://epasargad.liara.run/${product.image}`} alt={product.name} />
                                     </div>
                                 </div>
-                                <a className="" data-slide="prev">
-                                    <i className=""></i>
-                                </a>
-                                <a className="" data-slide="next">
-                                    <i className=""></i>
-                                </a>
                             </div>
                         </div>
 
                         <div className="item-info">
+                            {product.used && (
+                                <div className="used">کارکرده</div>
+                            )}
                             <h1 className="">{product.name}</h1>
 
-                            <h3 className="">{product.price}تومان</h3>
-                            <div className="item-information" dangerouslySetInnerHTML={{ __html: truncateText(product.description, 35) }} />
-                            <div className="item-color">
-                                <p className="">رنگ :</p>
-                                <form className="item-color-form">
-                                    <div className="item-color-div">
-                                        <input type="radio" className="item-color-input" id="color-1" name="color"/>
-                                        <label className="item-color-label" for="color-1">{product.color}</label>
-                                    </div>
-                                </form>
+                            {product.price && (
+                                <h3 className="">{product.price.toLocaleString('fa')} تومان</h3>
+                            )}
+                            <div className="item-information">
+                                <p><b>وضعیت دستگاه : </b>{product.device_status}</p>
+                                <p><b>رنگ : </b>{convertToPersian(product.color)}</p>
+                                <p><b>مدت زمان نگهداری شارژ : </b>{product.charging_time}</p>
                             </div>
+
+                            <strong><a href="tel:09052263270" style={{ color: 'blue'}}>تماس برای مشاوره بیشتر</a></strong>
+                            
                             <div className="add-to-cart-container">
                                 <div className="quantity-controls" style={{ width: '130px' }}>
                                     <div className="quantity-button-div">
@@ -230,7 +232,26 @@ function ProductDetail () {
                         <div className="tab-content">
                             <div className={`tab-pane ${activeTab === 'description' ? 'active' : ''}`} id="tab-pane-description">
                                 <h4 className="tab-title">توضیحات محصول</h4>
-                                <p>{product.description}</p>
+                                <div className="item-information">
+                                    <p><b>وضعیت دستگاه : </b>{product.device_status}</p>
+                                    <p><b>رنگ : </b>{convertToPersian(product.color)}</p>
+                                    <p><b>مدت زمان نگهداری شارژ : </b>{product.charging_time}</p>
+                                    <p><b>مدت زمان دریافت شارژ : </b>{product.charge_duration}</p>
+                                    <p><b>ظرفیت باتری : </b>{product.battery_capacity}</p>
+                                    <p><b>سرعت تراکنش : </b>{product.transaction_speed}</p>
+                                    <p><b>حافظه رم : </b>{product.ram_memory}</p>
+                                    <p><b>نوع نمایشگر : </b>{product.display_type}</p>
+                                    <p><b>رنگ نمایشگر : </b>{product.display_color}</p>
+                                    <p><b>سایز نمایشگر : </b>{product.display_size}</p>
+                                    <p><b>نوع پرینتر : </b>{product.printer_type}</p>
+                                    <p><b>صفحه کلید : </b>{product.keyboard_type}</p>
+                                    <p><b>وزن : </b>{product.weight}</p>
+                                    <p><b>ابعاد : </b>{product.dimensions}</p>
+                                    <p><b>بلوتوث : </b>{product.bluetooth === true ? 'دارد' : 'ندارد'}</p>
+                                    <p><b>GPRS : </b>{product.gprs === true ? 'دارد' : 'ندارد'}</p>
+                                    <p><b>WIFI : </b>{product.wifi === true ? 'دارد' : 'ندارد'}</p>
+                                    <p><b>بانک های متصل : </b>{product.connected_banks}</p>
+                                </div>
                             </div>
                             <div className={`tab-pane ${activeTab === 'reviews' ? 'active' : ''}`} id="tab-pane-reviews">
                                 <div className="review-div">

@@ -24,6 +24,8 @@ function ProductsComponent() {
         { color: "سفید", index: "white" },
         { color: "مشکی", index: "black" },
         { color: "آبی", index: "blue" },
+        { color: "زرد", index: "yellow" },
+        { color: "سبز", index: "green" },
     ];
 
     const priceRanges = [
