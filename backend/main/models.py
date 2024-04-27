@@ -86,7 +86,7 @@ class Comment(models.Model):
 
 
 class Services(models.Model):
-    image = models.ImageField(upload_to='meida/')
+    image = models.ImageField(upload_to='media/')
     title = models.CharField(max_length=200)
     text = models.TextField()
 
