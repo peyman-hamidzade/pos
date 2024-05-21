@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
+import Coupon from '../coupon/Coupon';
 
 const CartComponent = () => {
     const [cart, setCart] = useState([]);
+    const [total, setTotal] = useState(0);
 
+    // Fetch cart from localStorage on component mount
     useEffect(() => {
         const storedCart = JSON.parse(localStorage.getItem('cart'));
         if (storedCart) {
             setCart(storedCart);
+            const initialTotal = storedCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            setTotal(initialTotal);
         }
     }, []);
 
+    // Save cart to localStorage whenever it changes
     useEffect(() => {
         if (cart.length > 0) {
             localStorage.setItem('cart', JSON.stringify(cart));
+            const newTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            setTotal(newTotal);
+        } else {
+            localStorage.removeItem('cart');
         }
     }, [cart]);
 
@@ -70,13 +80,10 @@ const CartComponent = () => {
                 </tbody>
             </table>
             <div className="cart-summary">
-                <div className="coupon">
-                    <input type="text" placeholder="کد تخفیف" disabled />
-                    <button disabled>اعمال کد</button>
-                </div>
+                <Coupon total={total} setTotal={setTotal} />
                 <div className="summary">
                     <p>هزینه ارسال <span>رایگان</span></p>
-                    <p>جمع کل <span>{cart.reduce((total, item) => total + item.price * item.quantity, 0)} ریال</span></p>
+                    <p>جمع کل <span>{total} ریال</span></p>
                     <button>ادامه جهت تسویه حساب</button>
                 </div>
             </div>

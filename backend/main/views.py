@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Product, Services, Faq, Ticket, Comment
-from .serializers import ProductSerializer, ServiceSerializer, FaqSerializer, TicketSerializer, CommentSerializer
+from .models import Product, Services, Faq, Ticket, Comment, Coupon
+from .serializers import ProductSerializer, ServiceSerializer, FaqSerializer, TicketSerializer, CommentSerializer, CouponSerializer
 
 
 
@@ -103,3 +103,15 @@ def list_comments(product, slug):
     except Exception as e:
         return Response({"message": "Error occurred while fetching comments"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+@api_view(['POST'])
+def validate_coupon(request):
+    code = request.data.get('code')
+    try:
+        coupon = Coupon.objects.get(code=code, is_active=True)
+        serializer = CouponSerializer(coupon)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Coupon.DoesNotExist:
+        return Response({"message": "کد تخفیف یافت نشد."}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -110,3 +110,13 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f'{self.title} by {self.email}'
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=5, unique=True)
+    is_active = models.BooleanField(default=True)
+    discount = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.code

@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from .models import Product, Services, Faq, Ticket, Comment, Category
+from .models import Product, Services, Faq, Ticket, Comment, Category, Coupon
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -39,6 +39,11 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ['name']
     search_fields = ['name']
 
+class CouponAdmin(admin.ModelAdmin):
+    list_display = ['is_active', 'code', 'discount']
+    list_filter = ['is_active']
+    search_fields = ['is_active', 'code', 'discount']
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Services, ServiceAdmin)
@@ -46,3 +51,4 @@ admin.site.register(Faq, FaqAdmin)
 admin.site.register(Ticket, TicketAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Coupon, CouponAdmin)

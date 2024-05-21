@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import Product, Services, Faq, Ticket, Comment, Category
+from .models import Product, Services, Faq, Ticket, Comment, Category, Coupon
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -27,3 +27,9 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+
+
+class CouponSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coupon
+        fields = ['code', 'discount', 'is_active']
