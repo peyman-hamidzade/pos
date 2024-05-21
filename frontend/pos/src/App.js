@@ -7,6 +7,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Shop from './pages/Shop';
 import Product from './pages/Product';
+import Cart from './pages/Cart';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path='contact/' element={ <Contact /> } />
           <Route path='shop/' element={ <Shop /> } />
           <Route path='/product/:slug' element={ <Product /> } />
+          <Route path='cart/' element={ <Cart /> } />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

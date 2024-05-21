@@ -12,7 +12,6 @@ function Navbar() {
                         <div className="drawer-content">
                             <label htmlFor="my-drawer-4" className="swap swap-rotate drawer-button">
 
-                            {/* this hidden checkbox controls the state */}
                             <input type="checkbox" />
                             
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 stroke-black swap-off fill-current">

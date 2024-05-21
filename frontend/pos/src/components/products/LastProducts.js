@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import axiosInstance from '../axiosInstance/axiosInstance';
+import AddToCart from '../cart/AddToCart';
 
 function LastProducts() {
 
@@ -47,7 +48,6 @@ function LastProducts() {
                         {products.map((product) => (
 
                             <div className='product-div' key={product.id}>
-                            {console.log(product)}
 
                                 <Link to={`product/${product.slug}/`}>
                                     <div className='product-image-div'>
@@ -61,7 +61,7 @@ function LastProducts() {
 
                                     <div className='product-cart-div'>
                                         <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                        <Link to={'/shop'}>افزودن به سبد خرید</Link>
+                                        <AddToCart slug={product.slug} />
                                     </div>
                             </div>
 
