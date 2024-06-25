@@ -8,6 +8,9 @@ import Contact from './pages/Contact';
 import Shop from './pages/Shop';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -23,6 +26,9 @@ function App() {
           <Route path='shop/' element={ <Shop /> } />
           <Route path='/product/:slug' element={ <Product /> } />
           <Route path='cart/' element={ <Cart /> } />
+          <Route path='register/' element={ <Register /> } />
+          <Route path='login/' element={ <Login /> } />
+          <Route path='forgot-password/' element={ <ForgotPassword /> } />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

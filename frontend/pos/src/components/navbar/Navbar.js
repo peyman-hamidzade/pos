@@ -62,7 +62,7 @@ function Navbar() {
                     </div>
                 </div>
                     <div className="border bg-stone-900 text-orange-200 hover:bg-orange-200 hover:text-stone-900 duration-300 rounded-full">
-                        <Link to={'/profile'} className="flex py-2.5 px-7 rounded-full font-YekanBakh-Regular">ورود | ثبت نام</Link>
+                        <Link to={'/register'} className="flex py-2.5 px-7 rounded-full font-YekanBakh-Regular">ورود | ثبت نام</Link>
                     </div>
             
                 </div>

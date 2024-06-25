@@ -1,3 +1,12 @@
+
+backend/account/migrations/*.py
+
+backend/main/migrations/*.py
+
+!backend/main/migrations/__init__.py
+!backend/account/migrations/__init__.py
+
+
 pos-template
 
 venv
