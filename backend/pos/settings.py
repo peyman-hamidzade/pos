@@ -45,11 +45,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
-
     "main",
     "account",
     "rest_framework_simplejwt.token_blacklist",
     "django.contrib.sites",
+    "django_celery_beat",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [
@@ -195,3 +196,12 @@ REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 
 SITE_ID = 1
+
+
+# celery 
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
