@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django_celery_beat",
     "django_celery_results",
+    "orders",
 ]
 
 MIDDLEWARE = [
