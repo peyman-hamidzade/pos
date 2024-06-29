@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Coupon from '../coupon/Coupon';
 
 const CartComponent = () => {
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
+    const [discount, setDiscount] = useState(0);
+    const navigate = useNavigate();
 
     // Fetch cart from localStorage on component mount
     useEffect(() => {
@@ -48,6 +51,10 @@ const CartComponent = () => {
         );
     };
 
+    const handleCheckout = () => {
+        navigate('/orders', { state: { cart, total, discount } });
+    };
+
     return (
         <div className="cart-container">
             <table className="cart-table">
@@ -80,11 +87,11 @@ const CartComponent = () => {
                 </tbody>
             </table>
             <div className="cart-summary">
-                <Coupon total={total} setTotal={setTotal} />
+                <Coupon total={total} setTotal={setTotal} setDiscount={setDiscount} />
                 <div className="summary">
                     <p>هزینه ارسال <span>رایگان</span></p>
                     <p>جمع کل <span>{total} ریال</span></p>
-                    <button>ادامه جهت تسویه حساب</button>
+                    <button onClick={handleCheckout}>ادامه جهت تسویه حساب</button>
                 </div>
             </div>
         </div>

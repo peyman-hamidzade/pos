@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const Coupon =({total, setTotal}) => {
+const Coupon =({total, setTotal, setDiscount}) => {
 
     const [coupon, setCoupon] = useState('');
 
@@ -14,6 +14,7 @@ const Coupon =({total, setTotal}) => {
             const { discount } = response.data;
             const newTotal = total - (total * discount / 100);
             setTotal(newTotal)
+            setDiscount(discount);
             toast.success('تخفیف اعمال شد.');
             setCoupon('')
         }catch(error) {

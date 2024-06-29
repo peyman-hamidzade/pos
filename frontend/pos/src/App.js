@@ -30,7 +30,7 @@ function App() {
           <Route path='register/' element={ <Register /> } />
           <Route path='login/' element={ <Login /> } />
           <Route path='forgot-password/' element={ <ForgotPassword /> } />
-          <Route path='checkout/' element={ <Checkout /> } />
+          <Route path='orders/' element={ <Checkout /> } />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

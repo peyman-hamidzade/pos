@@ -1,59 +1,151 @@
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import axiosInstance from '../axiosInstance/axiosInstance';
+
 function CheckoutComponent() {
+    const location = useLocation();
+    const { cart, total, discount } = location.state;
+
+    const [order, setOrder] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        address: '',
+        postal_code: '',
+        city: '',
+        discount: discount,
+        total: total,
+    });
+
+    const handleOrderChange = (e) => {
+        setOrder({ ...order, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axiosInstance.post('orders/create/', {
+                order,
+                order_items: cart,
+            });
+            console.log('Order created:', response.data);
+            // check the response and redirect user to payment gateway and clear the cart
+            // show the status of orders
+        } catch (error) {
+            console.error('There was an error creating the order!', error);
+        }
+    };
+
     return (
         <>
-        <div class="checkout-container">
-            <div class="billing-address">
-                <h2>آدرس صورتحساب</h2>
-                <form>
-                    <div class="checkout-form-group">
-                        <label for="first-name">نام</label>
-                        <input type="text" id="first-name" placeholder="نام" />
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="last-name">نام خانوادگی</label>
-                        <input type="text" id="last-name" placeholder="نام خانوادگی" />
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="email">ایمیل</label>
-                        <input type="email" id="email" placeholder="example@email.com" />
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="mobile">شماره موبایل</label>
-                        <input type="tel" id="mobile" placeholder="+123 456 789" />
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="address-line1">آدرس </label>
-                        <input type="text" id="address-line1" placeholder="123 Street" />
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="city">شهر</label>
-                        <input type="text" id="city" placeholder="New York" />
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="state">استان</label>
-                        <input type="text" id="state" placeholder="New York" />
-                    </div>
-                    <div class="checkout-form-group">
-                        <label for="zip">کد پستی</label>
-                        <input type="text" id="zip" placeholder="123" />
-                    </div>
-                </form>
+            <div className="checkout-container">
+                <div className="billing-address">
+                    <h2>آدرس صورتحساب</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="checkout-form-group">
+                            <label htmlFor="first_name">نام</label>
+                            <input 
+                                type="text" 
+                                id="first_name" 
+                                name="first_name"
+                                placeholder="نام" 
+                                value={order.first_name}
+                                onChange={handleOrderChange} 
+                            />
+                        </div>
+
+                        <div className="checkout-form-group">
+                            <label htmlFor="last_name">نام خانوادگی</label>
+                            <input 
+                                type="text" 
+                                id="last_name" 
+                                name="last_name"
+                                placeholder="نام خانوادگی" 
+                                value={order.last_name}
+                                onChange={handleOrderChange} 
+                            />
+                        </div>
+    
+                        <div className="checkout-form-group">
+                            <label htmlFor="email">ایمیل</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"
+                                placeholder="ایمیل"
+                                value={order.email}
+                                onChange={handleOrderChange} 
+                            />
+                        </div>
+
+                        <div className="checkout-form-group">
+                            <label htmlFor="phone_number">شماره موبایل</label>
+                            <input 
+                                type="tel" 
+                                id="phone_number" 
+                                name="phone_number"
+                                placeholder="09123456789"
+                                value={order.phone_number}
+                                onChange={handleOrderChange} 
+                            />
+                        </div>
+
+                        <div className="checkout-form-group">
+                            <label htmlFor="address">آدرس</label>
+                            <input 
+                                type="text" 
+                                id="address" 
+                                name="address"
+                                placeholder="تهران خیابان انقلاب ..."
+                                value={order.address}
+                                onChange={handleOrderChange} 
+                            />
+                        </div>
+
+                        <div className="checkout-form-group">
+                            <label htmlFor="city">شهر</label>
+                            <input 
+                                type="text" 
+                                id="city" 
+                                name="city"
+                                placeholder="تهران"
+                                value={order.city}
+                                onChange={handleOrderChange} 
+                            />
+                        </div>
+
+                        <div className="checkout-form-group">
+                            <label htmlFor="postal_code">کد پستی</label>
+                            <input 
+                                type="text" 
+                                id="postal_code" 
+                                name="postal_code"
+                                placeholder="123"
+                                value={order.postal_code}
+                                onChange={handleOrderChange} 
+                            />
+                        </div>
+
+                        <button type="submit">تسویه حساب</button>
+                    </form>
+                </div>
+                <div className="order-summary">
+                    <h2>مجموع سفارش</h2>
+                    <ul>
+                        <li>محصولات</li>
+                        {cart.map((item) => (
+                            <div key={item.id}>
+                                <li>{item.name} - تعداد {item.quantity} <span>{item.price}</span></li>
+                            </div>
+                        ))}
+                        <li>هزینه ارسال <span>رایگان</span></li>
+                        <li>مجموع <span>{total} ریال</span></li>
+                    </ul>
+                </div>
             </div>
-            <div class="order-summary">
-                <h2>مجموع سفارش</h2>
-                <ul>
-                    <li>محصولات</li>
-                    <li>پیراهن شیک رنگارنگ 1 <span>$150</span></li>
-                    <li>پیراهن شیک رنگارنگ 2 <span>$150</span></li>
-                    <li>پیراهن شیک رنگارنگ 3 <span>$150</span></li>
-                    <li>جمع جزء <span>$450</span></li>
-                    <li>هزینه ارسال <span>$10</span></li>
-                    <li>مجموع <span>$460</span></li>
-                </ul>
-            </div>
-        </div>
         </>
-    )
-};
+    );
+}
 
 export default CheckoutComponent;
