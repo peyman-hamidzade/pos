@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from .models import Order, OrderItem
 from .serializers import OrderSerializer, OrderItemSerializer, OrderStatusSerializer
@@ -41,10 +42,13 @@ def order_create(request):
     
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def list_order_status(request):
     try:
         user = request.user
         order_items = Order.objects.filter(user=user)
+        if not order_items.exists():
+            return Response({'message': 'شما هیچ سفارش ثبت شده ای ندارید .'}, status=status.HTTP_404_NOT_FOUND)
         order_serializer = OrderStatusSerializer(order_items, many=True)
         return Response(order_serializer.data, status=status.HTTP_200_OK)
     except Exception as e:

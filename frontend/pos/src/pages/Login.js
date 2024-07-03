@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axiosInstance from '../components/axiosInstance/axiosInstance';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,6 +8,10 @@ const Login = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -24,6 +28,7 @@ const Login = () => {
             });
             localStorage.setItem('authTokens', JSON.stringify(response.data));
             toast.success("با موفقیت وارد شدید.")
+            navigate(from, { replace: true });
         } catch (error) {
             if (error.response && error.response.data) {
                 const errorMessage = error.response.data.detail || 'نام کاربری یا رمز عبور نادرست است .';

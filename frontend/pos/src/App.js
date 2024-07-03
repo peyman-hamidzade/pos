@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import Checkout from './pages/Checkout';
 import TrackOrder from './pages/TrackOrder';
+import PrivateRoute from './components/privateRoute/PrivateRoute';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -32,7 +33,9 @@ function App() {
           <Route path='login/' element={ <Login /> } />
           <Route path='forgot-password/' element={ <ForgotPassword /> } />
           <Route path='orders/' element={ <Checkout /> } />
-          <Route path='track-order/' element={ <TrackOrder /> } />
+          <Route path="track-order/" element={<PrivateRoute />}>
+              <Route path="" element={<TrackOrder />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
