@@ -8,6 +8,7 @@ from .serializers import OrderSerializer, OrderItemSerializer, OrderStatusSerial
 from main.models import Product
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def order_create(request):
     order_data = request.data.get('order')
     order_data["user"] = request.user.id

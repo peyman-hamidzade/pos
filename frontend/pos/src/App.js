@@ -32,7 +32,9 @@ function App() {
           <Route path='register/' element={ <Register /> } />
           <Route path='login/' element={ <Login /> } />
           <Route path='forgot-password/' element={ <ForgotPassword /> } />
-          <Route path='orders/' element={ <Checkout /> } />
+          <Route path="/orders" element={<PrivateRoute />}>
+                <Route path="" element={<Checkout />} />
+            </Route>
           <Route path="track-order/" element={<PrivateRoute />}>
               <Route path="" element={<TrackOrder />} />
           </Route>
