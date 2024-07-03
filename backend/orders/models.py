@@ -2,11 +2,15 @@ from django.db import models
 from main.models import Product
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .tasks import send_status_sms
+from dirtyfields import DirtyFieldsMixin
 
 
 User = get_user_model()
 
-class Order(models.Model):
+class Order(DirtyFieldsMixin, models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -59,3 +63,10 @@ class OrderItem(models.Model):
     
     def get_cost(self):
         return self.price * self.quantity
+
+
+@receiver(post_save, sender=Order)
+def send_order_status_sms(sender, instance, **kwargs):
+    if 'status' in instance.get_dirty_fields():
+        status = instance.get_status_display()
+        send_status_sms.delay(instance.phone_number, status)
