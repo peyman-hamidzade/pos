@@ -21,7 +21,7 @@ function Footer () {
                         <li><Link to={'/'}>صفحه اصلی</Link></li>
                         <li><Link to={'/about'}>درباره ما</Link></li>
                         <li><Link to={'/contact'}>تماس با ما</Link></li>
-                        <li><Link to={'/'}>سبد خرید</Link></li>
+                        <li><Link to={'/cart'}>سبد خرید</Link></li>
                         <li><Link to={'/shop'}>فروشگاه</Link></li>
                     </ul>
                 </div>
@@ -30,7 +30,7 @@ function Footer () {
                     <ul>
                         <li><Link to={'/'}>ثبت کارتخوان</Link></li>
                         <li><Link to={'/services'}>خدمات</Link></li>
-                        <li><Link to={'/signup'}>ثبت نام</Link></li>
+                        <li><Link to={'/register'}>ثبت نام</Link></li>
                         <li><Link to={'/login'}>ورود</Link></li>
                         <li><Link to={'/faq'}>سوالات متداول</Link></li>
                     </ul>
