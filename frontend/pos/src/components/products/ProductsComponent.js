@@ -3,6 +3,7 @@ import axiosInstance from '../axiosInstance/axiosInstance'
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons';
+import AddToCart from "../cart/AddToCart";
 
 
 function ProductsComponent() {
@@ -214,10 +215,9 @@ function ProductsComponent() {
                                             <h6>{product.price} تومان</h6>
                                         </div>
                                     </Link>
-
                                         <div className='product-cart-div'>
                                             <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                            <Link to={'/shop'}>افزودن به سبد خرید</Link>
+                                            <AddToCart slug={product.slug} />
                                         </div>
                                 </div>
 

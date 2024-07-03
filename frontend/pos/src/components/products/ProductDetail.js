@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance/axiosInstance";
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus, faMinus, faPlus, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
+import AddToCart from "../cart/AddToCart";
 
 
 
@@ -54,19 +55,6 @@ function ProductDetail () {
         fetchComments();
     }, [slug]);
 
-    const decreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    };
-
-    const increaseQuantity = () => {
-        setQuantity(quantity + 1);
-    };
-
-    const addToCart = () => {
-        console.log(`Added ${quantity} product(s) to cart.`);
-    };
     
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -200,21 +188,9 @@ function ProductDetail () {
                             <strong><a href="tel:09052263270" style={{ color: 'blue'}}>تماس برای مشاوره بیشتر</a></strong>
                             
                             <div className="add-to-cart-container">
-                                <div className="quantity-controls" style={{ width: '130px' }}>
-                                    <div className="quantity-button-div">
-                                        <button className="quantity-button" onClick={decreaseQuantity}>
-                                            <FontAwesomeIcon icon={faMinus} />
-                                        </button>
-                                    </div>
-                                    <input type="text" className="quantity-input" value={quantity} readOnly />
-                                    <div className="quantity-button-div">
-                                        <button className="quantity-button" onClick={increaseQuantity}>
-                                            <FontAwesomeIcon icon={faPlus} />
-                                        </button>
-                                    </div>
-                                </div>
-                                <button className="add-to-cart-button" onClick={addToCart}>
-                                    <FontAwesomeIcon icon={faCartPlus} /> افزودن به سبد خرید
+                                <button className="add-to-cart-button">
+                                    <FontAwesomeIcon icon={faCartPlus} />
+                                    <AddToCart slug={product.slug} />
                                 </button>
                             </div>
                         </div>
@@ -361,7 +337,7 @@ function ProductDetail () {
 
                                 <div className='product-cart-div'>
                                     <FontAwesomeIcon icon={faShoppingCart} className='add-tocart-icon' style={{ color: '#D19C97' }} />
-                                    <Link to={'/shop'}>افزودن به سبد خرید</Link>
+                                    <AddToCart slug={product.slug} />
                                 </div>
                         </div>
 

@@ -3417,41 +3417,13 @@ details.collapse summary::-webkit-details-marker{
   margin-top: 2rem;
 }
 
-.quantity-controls {
-  display: flex;
-  align-items: center;
-}
-
-.quantity-button {
-  background-color: #D19C97;
-  border: none;
-  cursor: pointer;
-  padding: 10px 15px;
-}
-
-.quantity-input {
-  width: 50px;
-  text-align: center;
-  height: 40px;
-  background-color: #EDF1FF;
-}
-
-.quantity-button-div {
-  transition: 0.3s;
-}
-
-.quantity-button-div:hover {
-  color: #fff;
-  transition: 0.3s;
-}
-
 .add-to-cart-button {
   background-color: #D19C97;
+  display: flex;
   border: none;
   color: black;
   cursor: pointer;
   padding: 10px 20px;
-  margin-right: 2rem;
   transition: 0.3s;
 }
 
