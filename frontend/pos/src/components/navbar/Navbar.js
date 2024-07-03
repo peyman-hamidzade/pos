@@ -36,7 +36,7 @@ function Navbar() {
                                 </div> 
                                 <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/'}>صفحه اصلی</Link></li>
                                 <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/shop'}>فروشگاه</Link></li>
-                                <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/'}>ثبت کارتخوان</Link></li>
+                                <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/track-order'}>پیگیری خرید</Link></li>
                                 <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/faq'}>سوالات متداول</Link></li>
                                 <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/about'}>درباره ما</Link></li>
                                 <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/contact'}>تماس با ما</Link></li>
@@ -53,7 +53,7 @@ function Navbar() {
                         <ul className="flex menu lg:menu-horizontal">
                             <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/'}>صفحه اصلی</Link></li>
                             <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/shop'}>فروشگاه</Link></li>
-                            <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/'}>ثبت کارتخوان</Link></li>
+                            <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/track-order'}>پیگیری خرید</Link></li>
                             <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/faq'}>سوالات متداول</Link></li>
                             <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/about'}>درباره ما</Link></li>
                             <li><Link className="hover:border-b hover:border-orange-200 pb-1 duration-300" to={'/contact'}>تماس با ما</Link></li>

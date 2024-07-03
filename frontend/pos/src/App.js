@@ -12,6 +12,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import Checkout from './pages/Checkout';
+import TrackOrder from './pages/TrackOrder';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path='login/' element={ <Login /> } />
           <Route path='forgot-password/' element={ <ForgotPassword /> } />
           <Route path='orders/' element={ <Checkout /> } />
+          <Route path='track-order/' element={ <TrackOrder /> } />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,6 +1,7 @@
 from django.db import models
 from main.models import Product
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 
 
 User = get_user_model()
@@ -19,6 +20,17 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+    class OrderStatus(models.TextChoices):
+        PENDING = 'pending', _('درحال بررسی')  # default
+        REGISTERING_POS = 'registering_pos', _('درحال ثبت کارتخوان')
+        SHIPPED = 'shipped', _('ارسال شده')
+        DELIVERED = 'delivered', _('تحویل داده شده')
+
+    status = models.CharField(
+        max_length=20,
+        choices=OrderStatus.choices,
+        default=OrderStatus.PENDING,
+    )
 
     class Meta:
         ordering = ['-created']

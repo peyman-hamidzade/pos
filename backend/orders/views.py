@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from .models import Order, OrderItem
-from .serializers import OrderSerializer, OrderItemSerializer
+from .serializers import OrderSerializer, OrderItemSerializer, OrderStatusSerializer
 from main.models import Product
 
 @api_view(['POST'])
@@ -38,3 +38,14 @@ def order_create(request):
         return Response(order_serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(order_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['GET'])
+def list_order_status(request):
+    try:
+        user = request.user
+        order_items = Order.objects.filter(user=user)
+        order_serializer = OrderStatusSerializer(order_items, many=True)
+        return Response(order_serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
