@@ -13,6 +13,20 @@ const Register = () => {
     const navigate = useNavigate();
     const [step, setStep] = useState(1);
 
+    function normalizePhoneNumber(phoneNumber) {
+        const cleaned = phoneNumber.replace(/\D/g, '');
+    
+        if (cleaned.length === 10) {
+            return '0' + cleaned;
+        } else if (cleaned.length === 12 && cleaned.startsWith('989')) {
+            return '0' + cleaned.slice(2);
+        } else if (cleaned.length === 11 && cleaned.startsWith('09')) {
+            return cleaned;
+        }
+    
+        return cleaned;
+    }    
+
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -38,12 +52,14 @@ const Register = () => {
             return;
         }
 
+        const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber);
+
         try {
             const response = await axiosInstance.post('register/', {
                 username,
                 password,
                 confirm_password: confirmPassword,
-                phone_number: phoneNumber,
+                phone_number: normalizedPhoneNumber,
             });
             toast.success(response.data.message)
             setStep(2);
@@ -54,9 +70,10 @@ const Register = () => {
 
     const handleVerifyPhone = async (e) => {
         e.preventDefault();
+        const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber);
         try {
             const response = await axiosInstance.post('verify-phone/', {
-                phone_number: phoneNumber,
+                phone_number: normalizedPhoneNumber,
                 verification_code: verificationCode,
             });
             toast.success(response.data.message)
