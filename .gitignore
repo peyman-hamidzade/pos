@@ -2,9 +2,13 @@
 backend/account/migrations/*.py
 
 backend/main/migrations/*.py
+backend/orders/migrations/*.py
+
+
 
 !backend/main/migrations/__init__.py
 !backend/account/migrations/__init__.py
+!backend/orders/migrations/__init__.py
 
 
 pos-template
