@@ -4,7 +4,6 @@ import axiosInstance from '../axiosInstance/axiosInstance';
 
 function normalizePhoneNumber(phoneNumber) {
     const cleaned = phoneNumber.replace(/\D/g, '');
-
     if (cleaned.length === 10) {
         return '0' + cleaned;
     } else if (cleaned.length === 12 && cleaned.startsWith('989')) {
@@ -12,7 +11,6 @@ function normalizePhoneNumber(phoneNumber) {
     } else if (cleaned.length === 11 && cleaned.startsWith('09')) {
         return cleaned;
     }
-
     return cleaned;
 }
 
@@ -49,9 +47,20 @@ function CheckoutComponent() {
         const normalizedPhoneNumber = normalizePhoneNumber(order.phone_number);
         try {
             const response = await axiosInstance.post('orders/create/', {
-                ...order,
+                first_name: order.first_name,
+                last_name: order.last_name,
+                email: order.email,
                 phone_number: normalizedPhoneNumber,
-                order_items: cart,
+                address: order.address,
+                postal_code: order.postal_code,
+                city: order.city,
+                discount: order.discount,
+                total: order.total,
+                order_items: cart.map(item => ({
+                    id: item.id,
+                    quantity: item.quantity,
+                    price: item.price
+                }))
             });
             console.log('Order created:', response.data);
             // check the response and redirect user to payment gateway and clear the cart
