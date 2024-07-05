@@ -20,6 +20,7 @@ class Order(DirtyFieldsMixin, models.Model):
     postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
     discount = models.FloatField()
+    coupon = models.CharField(max_length=20, default=None)
     total = models.DecimalField(max_digits=10, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

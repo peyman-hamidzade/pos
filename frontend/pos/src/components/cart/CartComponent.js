@@ -6,6 +6,7 @@ const CartComponent = () => {
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
     const [discount, setDiscount] = useState(0);
+    const [coupon, setCoupon] = useState('');
     const navigate = useNavigate();
 
     // Fetch cart from localStorage on component mount
@@ -52,7 +53,7 @@ const CartComponent = () => {
     };
 
     const handleCheckout = () => {
-        navigate('/orders', { state: { cart, total, discount } });
+        navigate('/orders', { state: { cart, total, discount, coupon } });
     };
 
     return (
@@ -87,7 +88,7 @@ const CartComponent = () => {
                 </tbody>
             </table>
             <div className="cart-summary">
-                <Coupon total={total} setTotal={setTotal} setDiscount={setDiscount} />
+                <Coupon total={total} setTotal={setTotal} setDiscount={setDiscount} setCoupon={setCoupon} />
                 <div className="summary">
                     <p>هزینه ارسال <span>رایگان</span></p>
                     <p>جمع کل <span>{total} ریال</span></p>

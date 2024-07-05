@@ -18,7 +18,7 @@ function CheckoutComponent() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const { cart, total, discount } = location.state || { cart: [], total: 0, discount: 0 };
+    const { cart, total, discount, coupon } = location.state || { cart: [], total: 0, discount: 0, coupon: '' };
 
     useEffect(() => {
         if (!location.state || !location.state.cart || location.state.cart.length === 0) {
@@ -36,6 +36,7 @@ function CheckoutComponent() {
         city: '',
         discount: discount,
         total: total,
+        coupon: coupon,
     });
 
     const handleOrderChange = (e) => {
@@ -56,6 +57,7 @@ function CheckoutComponent() {
                 city: order.city,
                 discount: order.discount,
                 total: order.total,
+                coupon: order.coupon,
                 order_items: cart.map(item => ({
                     id: item.id,
                     quantity: item.quantity,
@@ -165,6 +167,7 @@ function CheckoutComponent() {
                         </div>
                     ))}
                     <li>هزینه ارسال <span>رایگان</span></li>
+                    <li> تخفیف <span>{discount} %</span></li>
                     <li>مجموع <span>{total} ریال</span></li>
                 </ul>
             </div>
