@@ -3063,8 +3063,9 @@ details.collapse summary::-webkit-details-marker{
   justify-content: space-between;
 }
 
+
 .filter-products-div {
-  flex-basis: 15%;
+  flex-basis: 20%;
 }
 
 .list-products-div {
@@ -3093,6 +3094,30 @@ details.collapse summary::-webkit-details-marker{
 
 .filter-item label {
   margin-right: 7px;
+}
+
+@media (max-width: 896px) {
+  .shop-div {
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .filter-products-div {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
+
+@media (max-width: 690px) {
+  .products-search {
+    width: 90%;
+  }
+}
+
+@media (max-width: 420px) {
+  .filter-products-div {
+    display: inline-block;
+  }
 }
 
 .custom-checkbox {
@@ -3563,6 +3588,7 @@ details.collapse summary::-webkit-details-marker{
 .cart-container {
   display: flex;
   flex-direction: row-reverse;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 3rem;
 }
@@ -3574,10 +3600,10 @@ details.collapse summary::-webkit-details-marker{
 }
 
 .cart-table {
-  width: 65%;
+  flex-basis: 65%;
   border-collapse: collapse;
   background-color: #fff;
-  min-height: 15rem
+  height: 2rem
 }
 
 .cart-table th,
@@ -3621,12 +3647,13 @@ details.collapse summary::-webkit-details-marker{
 }
 
 .cart-summary {
-  width: 30%;
+  flex-basis: 30%;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
   text-align: right;
   background-color: #fff;
+  height: 15rem;
 }
 
 .cart-summary .coupon {
@@ -3671,20 +3698,31 @@ details.collapse summary::-webkit-details-marker{
   cursor: pointer;
 }
 
-/* styles.css */
+@media (max-width: 970px) {
+  .cart-container {
+    justify-content: center;
+  }
 
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f9f9f9;
-  margin: 0;
-  padding: 0;
-  direction: rtl;
+  .cart-table {
+    flex-basis: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .cart-summary {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 548px) {
+  .cart-container {
+    padding: 1rem;
+  }
 }
 
 .checkout-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   padding: 20px;
 }
 
@@ -3705,6 +3743,7 @@ body {
 .order-summary {
   flex: 1;
   max-width: 300px;
+  height: 14rem;
 }
 
 .billing-address h2 {
@@ -3761,6 +3800,15 @@ body {
 
 .order-summary li span {
   font-weight: bold;
+}
+
+.checkout-button {
+    padding: 10px;
+    background-color: #D19C97;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {

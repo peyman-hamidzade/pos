@@ -28,7 +28,7 @@ function Footer () {
                 <div class="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-2 text-right md:text-center">
                     <h3 class="font-IRANSansWeb_Bold text-white mb-4 text-base">خدمات شرکت</h3>
                     <ul>
-                        <li><Link to={'/'}>ثبت کارتخوان</Link></li>
+                        <li><Link to={'/track-order'}>پیگیری خرید</Link></li>
                         <li><Link to={'/services'}>خدمات</Link></li>
                         <li><Link to={'/register'}>ثبت نام</Link></li>
                         <li><Link to={'/login'}>ورود</Link></li>

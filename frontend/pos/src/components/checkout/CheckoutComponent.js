@@ -154,7 +154,7 @@ function CheckoutComponent() {
                             onChange={handleOrderChange}
                         />
                     </div>
-                    <button type="submit">تسویه حساب</button>
+                    <button type="submit" className='checkout-button' >تسویه حساب</button>
                 </form>
             </div>
             <div className="order-summary">
