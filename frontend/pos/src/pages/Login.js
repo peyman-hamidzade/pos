@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axiosInstance from '../components/axiosInstance/axiosInstance';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
 
@@ -41,6 +42,11 @@ const Login = () => {
 
     return (
             <>
+            <Helmet>
+                <title>
+                    ورود
+                </title>
+            </Helmet>
             <ToastContainer />
             <div className="min-h-screen py-6 flex flex-col justify-center sm:py-12">
             <div className="relative py-3 sm:max-w-sm sm:mx-auto">
